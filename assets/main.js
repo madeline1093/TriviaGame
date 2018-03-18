@@ -22,13 +22,13 @@ $(document).ready(function(){
         {
             "question" : "what is marge's maiden name?",
             "answer": ["Smith", "Bouvie", "Bubble"],
-            "correctAnswer" : 1,
+            "correctAnswer" : "Bouvie",
             "image": ""
         },
         {
             "question" : "what is homer's favorite snack?",
             "answer": ["donuts", "beer", "salad", "hummus"],
-            "correctAnswer" : 0,
+            "correctAnswer" : "donuts",
             "image": ""
         }
     ]
@@ -57,8 +57,8 @@ $(document).ready(function(){
         $('input:checked').each(function(){
             let userAnswer = $(this).val();
             console.log(userAnswer);
-           
-            if (userAnswer === ($(this).questions.[correctAnswer("name")])) {
+
+            if (userAnswer === $(this).correctAnswer("name")) {
                 correctAnswers++;
                 console.log('whoohoo');
             } else {
