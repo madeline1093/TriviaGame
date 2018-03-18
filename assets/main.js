@@ -22,13 +22,13 @@ $(document).ready(function(){
         {
             "question" : "what is marge's maiden name?",
             "answer": ["Smith", "Bouvie", "Bubble"],
-            "correctAnswer" : "Bouvie",
+            "correctAnswer" : 1,
             "image": ""
         },
         {
             "question" : "what is homer's favorite snack?",
             "answer": ["donuts", "beer", "salad", "hummus"],
-            "correctAnswer" : "donuts",
+            "correctAnswer" : 0,
             "image": ""
         }
     ]
@@ -49,7 +49,7 @@ $(document).ready(function(){
             };
             $('.js-questions').append('<br><hr>');
         };
-        //populate questsions div
+        
 
     };
 
@@ -58,7 +58,7 @@ $(document).ready(function(){
             let userAnswer = $(this).val();
             console.log(userAnswer);
            
-            if (userAnswer === questions.correctAnswer) {
+            if (userAnswer === ($(this).questions.[correctAnswer("name")])) {
                 correctAnswers++;
                 console.log('whoohoo');
             } else {
