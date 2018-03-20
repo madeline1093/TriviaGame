@@ -20,12 +20,14 @@ $(document).ready(function(){
 
     let questions = [
         {
+            "id": 0,
             "question" : "what is marge's maiden name?",
             "answer": ["Smith", "Bouvie", "Bubble"],
             "correctAnswer" : "Bouvie",
             "image": ""
         },
         {
+            "id": 1,
             "question" : "what is homer's favorite snack?",
             "answer": ["donuts", "beer", "salad", "hummus"],
             "correctAnswer" : "donuts",
@@ -52,19 +54,58 @@ $(document).ready(function(){
         
 
     };
-
     function stopGame() {
-        $('input:checked').each(function(){
-            let userAnswer = $(this).val();
-            console.log(userAnswer);
+        //$('input:checked').each(function(){
+           // let userAnswer = $(this).val();
+            
 
-            if (userAnswer === $(this).correctAnswer("name")) {
+            for (let i = 0; i < questions.length; i ++) {
+                let tempSelector = $("input:checked").get(i);
+                let userAnswer = $(tempSelector).val();
+                //console.log("user answer: " + userAnswer);
+                //console.log("correct answer: " + questions[i].correctAnswer);
+
+                if (userAnswer === questions[i].correctAnswer){
+                    console.log("yes!");
+                    correctAnswers++;
+                } else if (userAnswer !== questions[i].correctAnswer) {
+                    console.log("no!");
+                    incorrectAnswers++;
+                } else if ($("input:checked").attr("checked", false)) {
+                    console.log("unanswered question!");
+                    unansweredQuestions++;
+                }
+
+            console.log("incorrect: " + incorrectAnswers);
+            console.log("correct: " + correctAnswers);
+
+            let correctAnswerDiv = $("<div>");
+            let incorrectAnswer = $("<div>")
+                //let userAnswer = $("input:checked").val();
+               // console.log(questions.correctAnswer);
+                //console.log(questions[i].userAnswer);
+                //let userAnswer = ($('input:radio[name="q' + questions[i].name + '":checked').val());
+                // if (userAnswer === questions[i].correctAnswer) {
+                //     correctAnswers++;
+                //     console.log("correct: " + correctAnswers);
+                // } else if (userAnswer !== questions) {
+                //     incorrectAnswers++;
+                //     console.log("incorrect: " + incorrectAnswers);
+
+                // };
+              ////  console.log(questions[i]);
+             ///   console.log(questions[i].correctAnswer);
+            };
+           // console.log(userAnswers);
+
+/*          
+            if (userAnswer === userAnswer) {
                 correctAnswers++;
                 console.log('whoohoo');
             } else {
                 console.log('doh');
-            };
-        });
+            }; */
+      //  });
 
     };
 
