@@ -24,19 +24,22 @@ $(document).ready(function(){
             "question" : "what is marge's maiden name?",
             "answer": ["Smith", "Bouvie", "Bubble"],
             "correctAnswer" : "Bouvie",
+            "checked": false,
             "image": ""
+
         },
         {
             "id": 1,
             "question" : "what is homer's favorite snack?",
             "answer": ["donuts", "beer", "salad", "hummus"],
             "correctAnswer" : "donuts",
+            "checked": false,
             "image": ""
         }
     ]
     //global variables
     //question data
-
+    $(".js-stop").hide();
     //functions
     function startGame() {
         $(".js-start").remove();
@@ -51,10 +54,17 @@ $(document).ready(function(){
             };
             $('.js-questions').append('<br><hr>');
         };
+        if ($("input:checked")) {
+            questions.checked = true;
+        }
         
+        console.log(questions[0].checked);
+
+        $(".js-stop").show();
 
     };
     function stopGame() {
+       
         //$('input:checked').each(function(){
            // let userAnswer = $(this).val();
             
@@ -64,49 +74,39 @@ $(document).ready(function(){
                 let userAnswer = $(tempSelector).val();
                 //console.log("user answer: " + userAnswer);
                 //console.log("correct answer: " + questions[i].correctAnswer);
+                
 
                 if (userAnswer === questions[i].correctAnswer){
                     console.log("yes!");
                     correctAnswers++;
+                    
                 } else if (userAnswer !== questions[i].correctAnswer) {
                     console.log("no!");
                     incorrectAnswers++;
-                } else if ($("input:checked").attr("checked", false)) {
+                    
+                } else {
                     console.log("unanswered question!");
                     unansweredQuestions++;
+                    
                 }
+
+            };
 
             console.log("incorrect: " + incorrectAnswers);
             console.log("correct: " + correctAnswers);
-
-            let correctAnswerDiv = $("<div>");
-            let incorrectAnswer = $("<div>")
-                //let userAnswer = $("input:checked").val();
-               // console.log(questions.correctAnswer);
-                //console.log(questions[i].userAnswer);
-                //let userAnswer = ($('input:radio[name="q' + questions[i].name + '":checked').val());
-                // if (userAnswer === questions[i].correctAnswer) {
-                //     correctAnswers++;
-                //     console.log("correct: " + correctAnswers);
-                // } else if (userAnswer !== questions) {
-                //     incorrectAnswers++;
-                //     console.log("incorrect: " + incorrectAnswers);
-
-                // };
-              ////  console.log(questions[i]);
-             ///   console.log(questions[i].correctAnswer);
-            };
            // console.log(userAnswers);
+            let correctAnswerDiv = $("<div>");
+            let incorrectAnswerDiv = $("<div>");
+            let unansweredQuestionsDiv = $("<div>");
 
-/*          
-            if (userAnswer === userAnswer) {
-                correctAnswers++;
-                console.log('whoohoo');
-            } else {
-                console.log('doh');
-            }; */
-      //  });
+            correctAnswerDiv.append("<p>Correct Answers: " + correctAnswers);
+            $(".js-correct-answers").prepend(correctAnswerDiv);
 
+            incorrectAnswerDiv.append("<p>Incorrect Answers: " + incorrectAnswers);
+            $(".js-incorrect-answers").prepend(incorrectAnswerDiv);
+
+            unansweredQuestionsDiv.append("<p>Unanswered Questions: " +unansweredQuestions);
+            $(".js-unanswered").prepend(unansweredQuestionsDiv);
     };
 
 
@@ -124,6 +124,7 @@ $(document).ready(function(){
 
     $(".js-stop").on('click', function(){
         stopGame();
+       // finalScreen();
         $(".js-questions").remove();
     })
     //timer runs out to end game and show score
