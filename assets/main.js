@@ -54,11 +54,7 @@ $(document).ready(function(){
             };
             $('.js-questions').append('<br><hr>');
         };
-        if ($("input:checked")) {
-            questions.checked = true;
-        }
-        
-        console.log(questions[0].checked);
+
 
         $(".js-stop").show();
 
@@ -70,7 +66,7 @@ $(document).ready(function(){
             
 
             for (let i = 0; i < questions.length; i ++) {
-                let tempSelector = $("input:checked").get(i);
+                let tempSelector =$("input[name=q" + i +"]:radio");
                 let userAnswer = $(tempSelector).val();
                 //console.log("user answer: " + userAnswer);
                 //console.log("correct answer: " + questions[i].correctAnswer);
@@ -92,6 +88,7 @@ $(document).ready(function(){
 
             };
 
+            
             console.log("incorrect: " + incorrectAnswers);
             console.log("correct: " + correctAnswers);
            // console.log(userAnswers);
