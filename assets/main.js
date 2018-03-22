@@ -116,10 +116,12 @@ $(document).ready(function(){
         $(".js-incorrect-answers").hide();
         $(".js-unanswered").hide();
         $(".js-stop").hide();
-        let timeIsUpP = $("<p>");
-        timeIsUpP.addClass("times-up");
-        timeIsUpP.attr("");
-        timeIsUpP.append("Time's Up!")
+        let timeIsUpDiv = $("<div>");
+        let p= $("<p>").text("Time is up! Try again!")
+
+        timeIsUpDiv.append(p);
+
+        $(".js-time-up").prepend(timeIsUpDiv);
     }
 /*     function resetGame() {
         let correctAnswers= 0;
