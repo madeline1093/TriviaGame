@@ -13,11 +13,11 @@
 
 $(document).ready(function(){
 
-    let userAnswers= []; //"Bouvie", "donuts"
     let correctAnswers= 0;
     let incorrectAnswers= 0;
     let unansweredQuestions= 0;
-
+    let countDown;
+    $(".js-reset").hide();
     let questions = [
         {
             "id": 0,
@@ -42,7 +42,8 @@ $(document).ready(function(){
     $(".js-stop").hide();
     //functions
     function startGame() {
-        $(".js-start").remove();
+
+        $(".js-start").hide();
         //looping through the array of questions 
         for (var i = 0; i <questions.length; i++) {
             //grabbing the div with js-questions and appending a <p. tag that includes each of the questions
@@ -63,8 +64,6 @@ $(document).ready(function(){
        
         //$('input:checked').each(function(){
            // let userAnswer = $(this).val();
-            
-
             for (let i = 0; i < questions.length; i ++) {
                 let tempSelector =$("input[name=q" + i +"]:checked");
                 let userAnswer = $(tempSelector).val();
@@ -72,23 +71,21 @@ $(document).ready(function(){
                 //console.log("correct answer: " + questions[i].correctAnswer);
                 console.log(userAnswer);
 
-                if (userAnswer === questions[i].correctAnswer){
-                    console.log("yes!");
-                    correctAnswers++;
-                    
-                } else if (userAnswer !== questions[i].correctAnswer) {
-                    console.log("no!");
-                    incorrectAnswers++;
-                    
-                } else {
-                    console.log("unanswered question!");
+                if (!$("input[name=q" + i +"]:checked").val()) {
+                    console.log('unanswered');
                     unansweredQuestions++;
-                    
+
+                } else if (userAnswer === questions[i].correctAnswer) {
+                    console.log('correct');
+                    correctAnswers++;
+                } else {
+                    console.log('wrong');
+                    incorrectAnswers++;
                 }
 
             };
 
-            
+            console.log("unanswered: " +unansweredQuestions);
             console.log("incorrect: " + incorrectAnswers);
             console.log("correct: " + correctAnswers);
            // console.log(userAnswers);
@@ -104,29 +101,57 @@ $(document).ready(function(){
 
             unansweredQuestionsDiv.append("<p>Unanswered Questions: " +unansweredQuestions);
             $(".js-unanswered").prepend(unansweredQuestionsDiv);
+
+            $(".js-questions").hide();
+            $(".js-stop").hide();
+            $(".js-reset").show();
+
     };
 
-
+    function timeIsUp(){
+        $(".js-reset").show();
+        $(".js-title").hide();
+        $(".js-questions").hide();
+        $(".js-correct-answers").hide();
+        $(".js-incorrect-answers").hide();
+        $(".js-unanswered").hide();
+        $(".js-stop").hide();
+        let timeIsUpP = $("<p>");
+        timeIsUpP.addClass("times-up");
+        timeIsUpP.attr("");
+        timeIsUpP.append("Time's Up!")
+    }
+/*     function resetGame() {
+        let correctAnswers= 0;
+        let incorrectAnswers= 0;
+        let unansweredQuestions= 0;
+        $(".js-correct-answers").empty();
+        $(".js-incorrect-answers").empty();
+        $(".js-unanswered").empty();
+        $(".js-start").show();
+    } */
     //events
 
     //click start button will start the game
 
     $(".js-start").on('click', function(){
-        //execute instructions
         startGame ();
-
+        countDown = setTimeout(function(){
+            timeIsUp();
+        }, 5000)
     })
 
     //click stop button to see score
 
     $(".js-stop").on('click', function(){
         stopGame();
-       // finalScreen();
-        $(".js-questions").remove();
+
     })
     //timer runs out to end game and show score
 
-    
+    $(".js-reset").on('click', function(){
+        location.reload();
+    })
 
 
 
