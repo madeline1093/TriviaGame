@@ -66,11 +66,11 @@ $(document).ready(function(){
             
 
             for (let i = 0; i < questions.length; i ++) {
-                let tempSelector =$("input[name=q" + i +"]:radio");
+                let tempSelector =$("input[name=q" + i +"]:checked");
                 let userAnswer = $(tempSelector).val();
                 //console.log("user answer: " + userAnswer);
                 //console.log("correct answer: " + questions[i].correctAnswer);
-                
+                console.log(userAnswer);
 
                 if (userAnswer === questions[i].correctAnswer){
                     console.log("yes!");
