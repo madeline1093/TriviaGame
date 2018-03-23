@@ -16,8 +16,12 @@ $(document).ready(function(){
     let correctAnswers= 0;
     let incorrectAnswers= 0;
     let unansweredQuestions= 0;
-    let countDown;
+
     $(".js-reset").hide();
+
+    let count = 61;
+    let event;
+
     let questions = [
         {
             "id": 0,
@@ -61,7 +65,6 @@ $(document).ready(function(){
 
     };
     function stopGame() {
-       
         //$('input:checked').each(function(){
            // let userAnswer = $(this).val();
             for (let i = 0; i < questions.length; i ++) {
@@ -123,30 +126,42 @@ $(document).ready(function(){
 
         $(".js-time-up").prepend(timeIsUpDiv);
     }
-/*     function resetGame() {
-        let correctAnswers= 0;
-        let incorrectAnswers= 0;
-        let unansweredQuestions= 0;
-        $(".js-correct-answers").empty();
-        $(".js-incorrect-answers").empty();
-        $(".js-unanswered").empty();
-        $(".js-start").show();
-    } */
+
     //events
 
     //click start button will start the game
 
     $(".js-start").on('click', function(){
-        startGame ();
-        countDown = setTimeout(function(){
+        startGame();
+        countDown();
+
+        let tm = setInterval(countDown, 1000);
+        function countDown(){
+            count--;
+            let timeLeft = $("<div>");
+            let time = $("<p>").text(count);
+            
+            if (count === 0) {
+                clearInterval(tm);
+                timeIsUp();
+            } else {
+                console.log(count);
+            }
+        }
+       /*  countDown = setTimeout(function(){
+            count--;
+            if (count>0 {
+                clearInterval()
+            })
             timeIsUp();
-        }, 5000)
+        }, 5000) */
     })
 
     //click stop button to see score
 
     $(".js-stop").on('click', function(){
         stopGame();
+        clearInterval($(".js-start").tm);
 
     })
     //timer runs out to end game and show score
