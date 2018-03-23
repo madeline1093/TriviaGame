@@ -22,6 +22,8 @@ $(document).ready(function(){
     let count = 61;
     let event;
 
+    let tm = setInterval(countDown, 1000);
+
     let questions = [
         {
             "id": 0,
@@ -65,22 +67,24 @@ $(document).ready(function(){
 
     };
     function stopGame() {
-        //$('input:checked').each(function(){
-           // let userAnswer = $(this).val();
+            //loops through questions.length again
             for (let i = 0; i < questions.length; i ++) {
+                    //finds all of the checked radios
                 let tempSelector =$("input[name=q" + i +"]:checked");
+                //takes the values of the checked radios
                 let userAnswer = $(tempSelector).val();
-                //console.log("user answer: " + userAnswer);
-                //console.log("correct answer: " + questions[i].correctAnswer);
-                console.log(userAnswer);
 
+                
+                console.log(userAnswer);
+                // checks to see if there ISN'T a checked answer and adds to undefined
                 if (!$("input[name=q" + i +"]:checked").val()) {
                     console.log('unanswered');
                     unansweredQuestions++;
-
+                // checks to see if the checked answer is the correct one
                 } else if (userAnswer === questions[i].correctAnswer) {
                     console.log('correct');
                     correctAnswers++;
+                // if the answer isn't correct, marks it as incorrect
                 } else {
                     console.log('wrong');
                     incorrectAnswers++;
@@ -95,7 +99,7 @@ $(document).ready(function(){
             let correctAnswerDiv = $("<div>");
             let incorrectAnswerDiv = $("<div>");
             let unansweredQuestionsDiv = $("<div>");
-
+            //appending the variable updates above to the correct divs
             correctAnswerDiv.append("<p>Correct Answers: " + correctAnswers);
             $(".js-correct-answers").prepend(correctAnswerDiv);
 
@@ -110,7 +114,7 @@ $(document).ready(function(){
             $(".js-reset").show();
 
     };
-
+    // hides previous divs to show time is up alone
     function timeIsUp(){
         $(".js-reset").show();
         $(".js-title").hide();
@@ -123,49 +127,41 @@ $(document).ready(function(){
         let p= $("<p>").text("Time is up! Try again!")
 
         timeIsUpDiv.append(p);
+        
 
         $(".js-time-up").prepend(timeIsUpDiv);
     }
-
+    // start countdown, and put countdown count in div
+    function countDown(){
+        count--;
+        
+        
+        if (count === 0) {
+            clearInterval(tm);
+            timeIsUp();
+        } else {
+            $(".js-timer").text(count);
+            console.log(count);
+        }
+        
+    }
     //events
 
-    //click start button will start the game
+    //click start button will start the game and timer
 
     $(".js-start").on('click', function(){
         startGame();
         countDown();
-
-        let tm = setInterval(countDown, 1000);
-        function countDown(){
-            count--;
-            let timeLeft = $("<div>");
-            let time = $("<p>").text(count);
-            
-            if (count === 0) {
-                clearInterval(tm);
-                timeIsUp();
-            } else {
-                console.log(count);
-            }
-        }
-       /*  countDown = setTimeout(function(){
-            count--;
-            if (count>0 {
-                clearInterval()
-            })
-            timeIsUp();
-        }, 5000) */
     })
 
-    //click stop button to see score
+    //click stop button to see score, stops timer
 
     $(".js-stop").on('click', function(){
         stopGame();
-        clearInterval($(".js-start").tm);
-
+        clearInterval(tm);
     })
-    //timer runs out to end game and show score
-
+    
+    //reset game
     $(".js-reset").on('click', function(){
         location.reload();
     })
