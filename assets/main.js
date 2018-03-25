@@ -146,13 +146,14 @@ $(document).ready(function(){
             } else {
                 console.log(count); 
             }
-            return;
+            return time;
         }, 1000)
-        return;
+        return thtimeis;
     }
 
-    function stopCount(time) {
-        clearInterval(time);
+    function stopCount() {
+        let getTime 
+        clearInterval(this.time);
     }
 
 
