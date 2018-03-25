@@ -19,11 +19,13 @@ $(document).ready(function(){
 
     $(".js-reset").hide();
 
-    let count = 61;
-    let event;
+    let count = 60;
+    
 
-    let tm = setInterval(countDown, 1000);
+    let time;
 
+   
+    
     let questions = [
         {
             "id": 0,
@@ -48,6 +50,7 @@ $(document).ready(function(){
     $(".js-stop").hide();
     //functions
     function startGame() {
+        
 
         $(".js-start").hide();
         //looping through the array of questions 
@@ -61,12 +64,14 @@ $(document).ready(function(){
             };
             $('.js-questions').append('<br><hr>');
         };
-
-
+        
+        
+        
         $(".js-stop").show();
-
+        
     };
     function stopGame() {
+           
             //loops through questions.length again
             for (let i = 0; i < questions.length; i ++) {
                     //finds all of the checked radios
@@ -123,28 +128,47 @@ $(document).ready(function(){
         $(".js-incorrect-answers").hide();
         $(".js-unanswered").hide();
         $(".js-stop").hide();
+
         let timeIsUpDiv = $("<div>");
         let p= $("<p>").text("Time is up! Try again!")
-
         timeIsUpDiv.append(p);
-        
-
         $(".js-time-up").prepend(timeIsUpDiv);
     }
     // start countdown, and put countdown count in div
     function countDown(){
+        let time = setInterval(function(){
+            $(".js-timer").text(count);
+            count--;
+            if (count === 0) {
+                timeIsUp();
+                clearInterval(time);
+                (".js-timer").hide();
+            } else {
+                console.log(count); 
+            }
+            return;
+        }, 1000)
+        return;
+    }
+
+    function stopCount(time) {
+        clearInterval(time);
+    }
+
+
+
+/*         let time = setInterval(countDown, 1000);
         count--;
         
-        
         if (count === 0) {
-            clearInterval(tm);
+            clearInterval(time);
             timeIsUp();
         } else {
-            $(".js-timer").text(count);
+            
             console.log(count);
         }
-        
-    }
+        $(".js-timer").text(count); */
+     
     //events
 
     //click start button will start the game and timer
@@ -152,13 +176,14 @@ $(document).ready(function(){
     $(".js-start").on('click', function(){
         startGame();
         countDown();
+
     })
 
     //click stop button to see score, stops timer
 
     $(".js-stop").on('click', function(){
         stopGame();
-        clearInterval(tm);
+        stopCount();
     })
     
     //reset game
