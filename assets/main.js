@@ -136,7 +136,7 @@ $(document).ready(function(){
     }
     // start countdown, and put countdown count in div
     function countDown(){
-        let time = setInterval(function(){
+        time = setInterval(function(){
             $(".js-timer").text(count);
             count--;
             if (count === 0) {
@@ -148,12 +148,12 @@ $(document).ready(function(){
             }
             return time;
         }, 1000)
-        return thtimeis;
+        return time;
     }
 
     function stopCount() {
         let getTime 
-        clearInterval(this.time);
+        clearInterval(time);
     }
 
 
